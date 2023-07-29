@@ -6,6 +6,7 @@ import { useLoginUserMutation } from './authApiSlice'
 import { setCredentials } from './authSlice'
 import { useDispatch } from 'react-redux'
 import usePersist from '../../hooks/usePersist'
+import Spinner from '../spinner/Spinner'
 
 const Signup = () => {
   const [username,setUsername]=React.useState('')
@@ -13,8 +14,9 @@ const Signup = () => {
   const [response,setResponse]=React.useState('')
   const [persist, setPersist] = usePersist(); // Step 2: Use the usePersist hook
   const [error,setError]=React.useState('')
-  const [addBuyer]=useAddBuyerMutation()
-  const [loginUser]=useLoginUserMutation()
+  const [addBuyer, { isLoading: isAddingBuyer, isSuccess: addBuyerSuccess }] = useAddBuyerMutation();
+  const [loginUser, { isLoading: isLoggingIn, isSuccess: loginUserSuccess }] = useLoginUserMutation();
+
   const navigate=useNavigate()
   const dispatch=useDispatch()
 
@@ -46,7 +48,7 @@ const Signup = () => {
       setError(err.data?.msg || 'An error occurred');
   }
   }
-  return (
+  let content=(
     <div className='signup-div'>
         <form onSubmit={handleSubmit} className="signup-container">
           <p className="signup-title">Create Account</p>
@@ -84,6 +86,13 @@ const Signup = () => {
         </form>
     </div>
   )
+  if (isAddingBuyer||isLoggingIn){
+    content=( <>
+    <Spinner/>
+    <p>Signing You In...</p>
+            </>)
+  }
+  return content
 }
 
 export default Signup
