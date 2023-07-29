@@ -31,7 +31,7 @@ function App() {
       <Route path="login" element={<Login/>} />
       
       <Route path="*" element={<NotFound />} /> {/* Catch-all route for 404 */}
-      <Route path="admin" element={<RequireAuth allowedRoles={['Admin','User','Employee']} />}>
+      
       <Route element={<PersistLogin/>}>
         <Route element={<Prefetch/>}>
           <Route path="user" element={<RequireAuth allowedRoles={'User'}/>}>
@@ -52,7 +52,7 @@ function App() {
             <Route exact path='/admin/work/new' element={<AddEmployee/>}/>
             <Route  path='/admin/remove' element={<DelCustomer/>}/>
           </Route>
-          </Route>
+
         </Route>
       </Route>
     </Routes>
