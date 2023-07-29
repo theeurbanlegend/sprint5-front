@@ -22,7 +22,8 @@ const Signup = () => {
     e.preventDefault()
     const buyer={
       username:username,
-      password:password
+      password:password,
+      roles:['User']
     }
     try {
       // Create a new user
@@ -37,7 +38,7 @@ const Signup = () => {
       // Update the Redux state with the new credentials
       dispatch(setCredentials({ accessToken })); // Dispatch the setCredentials action
       setResponse('User created and logged in successfully');
-      console.log(response)
+      console.log('User created and logged in successfully')
       setUsername('');
       setPassword('');
       navigate('/user');
