@@ -31,10 +31,14 @@ const Login = () => {
     };
 
     try {
-      const { accessToken} = isuser
-        ? await loginUser(credentials).unwrap()
-        : await loginEmployee(credentials).unwrap();
-      
+      let response;
+      if (isuser) {
+        response = await loginUser(credentials).unwrap();
+      } else {
+        response = await loginEmployee(credentials).unwrap();
+      }
+
+      const { accessToken } = response;
       // Dispatch the setCredentials action
       dispatch(setCredentials({ accessToken }));
 
@@ -44,14 +48,13 @@ const Login = () => {
       setPassword('');
       console.log(accessToken, isuser)
       // Navigate to the appropriate route based on isuser state
-      if (status==='Admin') {
-        console.log("admin")
-
+      if (response?.verified?.roles?.includes("Admin")) {
+        console.log("yessss")
         navigate('/admin');
       } else if (isuser) {
         navigate('/user');
       } else {
-        // Handle any other roles or unknown cases here
+        // Handle other roles or unknown cases here
         navigate('/staff');
       }
     } catch (err) {
