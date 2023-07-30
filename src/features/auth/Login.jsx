@@ -16,6 +16,7 @@ const Login = () => {
   const [password, setPassword] = React.useState('');
   const [response, setResponse] = React.useState('');
   const [error, setError] = React.useState('');
+  const [isErrorVisible, setIsErrorVisible] = React.useState(false);
   const [persist, setPersist] = usePersist(); // Step 1: Use the usePersist hook
   const dispatch = useDispatch();
 
