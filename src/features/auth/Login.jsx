@@ -5,19 +5,17 @@ import { useDispatch } from 'react-redux';
 import { setCredentials } from './authSlice';
 import { useLoginUserMutation, useLoginEmployeeMutation } from './authApiSlice';
 import usePersist from '../../hooks/usePersist';
-import useAuth from '../../hooks/useAuth';
+import Spinner from '../spinner/Spinner';
 
 const Login = () => {
   const [isuser, setisUser] = React.useState(true);
   const navigate = useNavigate();
-  const [loginEmployee] = useLoginEmployeeMutation();
-  const [loginUser] = useLoginUserMutation();
+  const [loginEmployee, { isLoading: loginEmpIn, isSuccess: LoginEmpSuccess }] = useLoginEmployeeMutation();
+  const [loginUser, { isLoading: loginUserIn, isSuccess: LoginUserSuccess }] = useLoginUserMutation();
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [response, setResponse] = React.useState('');
   const [error, setError] = React.useState('');
-  const {roles,status}=useAuth()
-  console.log(status)
   const [persist, setPersist] = usePersist(); // Step 1: Use the usePersist hook
   const dispatch = useDispatch();
 
@@ -49,7 +47,6 @@ const Login = () => {
       console.log(accessToken, isuser)
       // Navigate to the appropriate route based on isuser state
       if (response?.verified?.roles?.includes("Admin")) {
-        console.log("yessss")
         navigate('/admin');
       } else if (isuser) {
         navigate('/user');
@@ -62,8 +59,7 @@ const Login = () => {
       console.log(err)
     }
   };
-
-  return (
+  let content=(
     <div className="login-div">
         <form className="login-container" onSubmit={handleSubmit}>
           <p className="login-title">{isuser ? 'Customer' : 'Employee'} Login</p>
@@ -112,6 +108,13 @@ const Login = () => {
         </form>
     </div>
   );
+  if (loginEmpIn||loginUserIn){
+    content=( <>
+    <Spinner/>
+    <p>Logging You In...</p>
+            </>)
+  }
+  return content
 };
 
 export default Login;
