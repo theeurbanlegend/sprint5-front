@@ -55,10 +55,33 @@ const Login = () => {
         navigate('/staff');
       }
     } catch (err) {
-      setError(err.data?.msg || 'An error occurred');
-      console.log(err)
-    }
-  };
+      if (err.status === 429) {
+      // If the error is due to "Too Many Requests" (status 429)
+      const retryAfterSeconds = err.data.retryAfterSeconds;
+      setError(`Too many login attempts. Please try again after ${retryAfterSeconds} seconds.`);
+      setIsErrorVisible(true); // Show the error message
+
+      // Start the countdown timer
+      let remainingTime = retryAfterSeconds;
+      const timerInterval = setInterval(() => {
+        remainingTime--;
+        if (remainingTime <= 0) {
+          // Hide the countdown timer and show the error message
+          clearInterval(timerInterval);
+          setIsErrorVisible(false);
+        
+        } else {
+          // Update the error message with the current remaining time
+          setError(`Too many login attempts. Please try again after ${remainingTime} seconds.`);
+        }
+      }, 1000); // Update the timer every second (1000 milliseconds)
+    
+}else{
+  setError(err.data?.msg || 'An error occurred');
+  console.log(err)}
+
+};
+}
   let content=(
     <div className="login-div">
         <form className="login-container" onSubmit={handleSubmit}>
