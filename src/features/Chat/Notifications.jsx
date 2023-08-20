@@ -2,17 +2,23 @@ import React, { useState } from 'react';
 import Receiver from './Receiver';
 import '../css/notifications.css'
 import useAuth from '../../hooks/useAuth';
-
+import {useGetMessagesQuery}from './chatApiSlice'
 const Notifications = () => {
     const {data:messages,isLoading,isSuccess,isError,error}=useGetMessagesQuery()
 
     const {username}=useAuth()
+
+    const handleClose=()=>{
+      console.log("closed")
+    }
 let content
 if (isLoading){
   content= <p>Is Loading...</p>
 }
 if(isSuccess){
-  content= <Receiver  messages={messages} onClose={handleClose} />
+  console.log(messages)
+  content= <Receiver messages={messages} onClose={handleClose} user={username} /> 
+  
 }
 if (isError){
   content= <p>{error.data.status}</p>
@@ -20,11 +26,10 @@ if (isError){
 
   
   return (
-    <div className='body'>
+    <div className='body mes-body'>
     <div className='container'>
       <h1 className='heading'>Notifications</h1>
-      
-      <Receiver messages={messages} onClose={handleClose} user={username} />
+      {content}
     </div>
     </div>
   );

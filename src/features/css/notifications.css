@@ -12,6 +12,30 @@
     font-weight: bold;
     margin-bottom: 1rem;
   }
+.sender{
+  width:100%;
+}
+.sender-body {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  padding: 0;
+  margin: 0;
+}
+.sender-body input{
+  width:70vw;
+  height:70px;
+  border-radius: 20px;
+  margin-bottom:10px ;
+}
+.sender-body button{
+  width:25vw;
+}
+.close-button{
+  position:absolute;
+  color:red;
+  right:0;
+}
   
   
   

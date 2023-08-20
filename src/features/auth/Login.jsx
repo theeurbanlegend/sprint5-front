@@ -79,12 +79,15 @@ const Login = () => {
           }
         }, 1000); // Update the timer every second (1000 milliseconds)
       
-  }else{setError(err.data?.msg || 'An error occurred');
+  }else{
+    setError(err.data?.msg||err.status || 'An error occurred');
     console.log(err)}
 
   };
   }
-  return (
+  let content
+  
+  content=(
     <div className="login-page">
       <div className='welcome'>
         <p>Welcome Back</p>
@@ -139,7 +142,8 @@ const Login = () => {
         </form>
         </div>
     </div>
-  );
+  )
+  
   if (loginEmpIn||loginUserIn){
     content=( <>
     <Spinner/>
@@ -147,6 +151,7 @@ const Login = () => {
             </>)
   }
   return content
+  
 };
 
 export default Login;
