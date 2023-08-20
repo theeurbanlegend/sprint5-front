@@ -131,7 +131,7 @@ const Login = () => {
           <p className='login-err'>{error}</p>
         </form>
         </div>
-    </div>
+    
   );
   if (loginEmpIn||loginUserIn){
     content=( <>
