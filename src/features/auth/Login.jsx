@@ -12,12 +12,11 @@ const Login = () => {
   const navigate = useNavigate();
   const [loginEmployee] = useLoginEmployeeMutation();
   const [loginUser] = useLoginUserMutation();
+  const [isErrorVisible, setIsErrorVisible] = React.useState(false);
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [response, setResponse] = React.useState('');
   const [error, setError] = React.useState('');
-  const {roles,status}=useAuth()
-  console.log(status)
   const [persist, setPersist] = usePersist(); // Step 1: Use the usePersist hook
   const dispatch = useDispatch();
 
@@ -31,10 +30,17 @@ const Login = () => {
     };
 
     try {
-      const { accessToken} = isuser
-        ? await loginUser(credentials).unwrap()
-        : await loginEmployee(credentials).unwrap();
-      
+      // const { accessToken} = isuser
+      //   ? await loginUser(credentials).unwrap()
+      //   : await loginEmployee(credentials).unwrap();
+      let response;
+      if (isuser) {
+        response = await loginUser(credentials).unwrap();
+      } else {
+        response = await loginEmployee(credentials).unwrap();
+      }
+
+      const { accessToken } = response;
       // Dispatch the setCredentials action
       dispatch(setCredentials({ accessToken }));
 
@@ -44,25 +50,51 @@ const Login = () => {
       setPassword('');
       console.log(accessToken, isuser)
       // Navigate to the appropriate route based on isuser state
-      if (status==='Admin') {
-        console.log("admin")
-
+      if (response?.verified?.roles?.includes("Admin")) {
+        console.log("yessss")
         navigate('/admin');
       } else if (isuser) {
         navigate('/user');
       } else {
-        // Handle any other roles or unknown cases here
+        // Handle other roles or unknown cases here
         navigate('/staff');
       }
     } catch (err) {
-      setError(err.data?.msg || 'An error occurred');
-      console.log(err)
-    }
-  };
+      if (err.status === 429) {
+        // If the error is due to "Too Many Requests" (status 429)
+        const retryAfterSeconds = err.data.retryAfterSeconds;
+        setError(`Too many login attempts. Please try again after ${retryAfterSeconds} seconds.`);
+        setIsErrorVisible(true); // Show the error message
+  
+        // Start the countdown timer
+        let remainingTime = retryAfterSeconds;
+        const timerInterval = setInterval(() => {
+          remainingTime--;
+          if (remainingTime <= 0) {
+            // Hide the countdown timer and show the error message
+            clearInterval(timerInterval);
+            setIsErrorVisible(false);
+          
+          } else {
+            // Update the error message with the current remaining time
+            setError(`Too many login attempts. Please try again after ${remainingTime} seconds.`);
+          }
+        }, 1000); // Update the timer every second (1000 milliseconds)
+      
+  }else{setError(err.data?.msg || 'An error occurred');
+    console.log(err)}
 
+  };
+  }
   return (
-    <div className="login-div">
-        <form className="login-container" onSubmit={handleSubmit}>
+    <div className="login-page">
+      <div className='welcome'>
+        <p>Welcome Back</p>
+        <p className={isuser?'cus-img':'staff-img'}></p>
+
+      </div>
+      <div className='login-div'>
+        <form  onSubmit={handleSubmit}>
           <p className="login-title">{isuser ? 'Customer' : 'Employee'} Login</p>
           <label htmlFor="username">Username:</label>
           <input
@@ -107,6 +139,7 @@ const Login = () => {
           <p>{response}</p>
           <p className='login-err'>{error}</p>
         </form>
+        </div>
     </div>
   );
 };
