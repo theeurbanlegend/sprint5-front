@@ -2,7 +2,7 @@ import { useState ,useEffect} from 'react'
 import io from 'socket.io-client'
 import '../css/receiver.css'
 import useAuth from '../../hooks/useAuth'
-const socket=io.connect('http://localhost:8080')
+const socket=io.connect('https://back-6xof.onrender.com')
 
 const Receiver = ({messages,onClose,user}) => {
     const [received,setReceived]=useState('')
