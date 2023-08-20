@@ -4,7 +4,7 @@ import { useGetMessagesQuery,useAddMessageMutation,useDeleteMessageMutation } fr
 import Receiver from './Receiver'
 import useAuth from '../../hooks/useAuth'
 
-const socket=io.connect('http://localhost:8080'||'https://back-6xof.onrender.com')
+const socket=io.connect('https://back-6xof.onrender.com')
 function Message() {
   const [mess,setMess]=useState('')
   const {username}=useAuth()
