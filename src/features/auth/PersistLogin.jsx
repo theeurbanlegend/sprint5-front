@@ -4,7 +4,7 @@ import { useRefreshMutation } from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import { useSelector } from 'react-redux'
 import { selectCurrentToken } from "./authSlice"
-
+import Spinner from '../spinner/Spinner'
 
 const PersistLogin = () => {
 
@@ -55,15 +55,24 @@ const PersistLogin = () => {
         content = <Outlet />
     } else if (isLoading) { //persist: yes, token: no
         console.log('loading')
-        content=(<p>Loading...</p>)
-    } else if (isError) { //persist: yes, token: no
-        console.log('error')
+        content=(<Spinner/>)
+    } else if (isError) { 
+        //persist: yes, token: no
+        if (error.status=='FETCH_ERROR'){
+            content= (
+                <p className='errmsg'>
+                    Please Check your Network Connection. Unable To Fetch Data From Server
+                    <br/>
+                    <Link to="/login">Please login again</Link>
+                </p>
+            )
+        }else{
         content = (
             <p className='errmsg'>
-                {`${error?.data?.message} - `}
+                {`${error?.data?.message||error.error} - `}
                 <Link to="/login">Please login again</Link>
             </p>
-        )
+        )}
     } else if (isSuccess && trueSuccess) { //persist: yes, token: yes
         console.log('success')
         content = <Outlet />

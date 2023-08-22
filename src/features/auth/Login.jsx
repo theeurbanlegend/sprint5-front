@@ -6,6 +6,9 @@ import { setCredentials } from './authSlice';
 import { useLoginUserMutation, useLoginEmployeeMutation } from './authApiSlice';
 import usePersist from '../../hooks/usePersist';
 import Spinner from '../spinner/Spinner';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Login = () => {
   const [isuser, setisUser] = React.useState(true);
@@ -29,9 +32,7 @@ const Login = () => {
     };
 
     try {
-      // const { accessToken} = isuser
-      //   ? await loginUser(credentials).unwrap()
-      //   : await loginEmployee(credentials).unwrap();
+      
       let response;
       if (isuser) {
         response = await loginUser(credentials).unwrap();
@@ -79,9 +80,14 @@ const Login = () => {
           }
         }, 1000); // Update the timer every second (1000 milliseconds)
       
+  }else if(err.status=='FETCH_ERROR'){
+        toast.error(`${err.status},Please Check Your Network Connection.`)
+        
+
   }else{
     setError(err.data?.msg||err.status || 'An error occurred');
-    console.log(err)}
+    
+  }
 
   };
   }
@@ -141,6 +147,7 @@ const Login = () => {
           <p className='login-err'>{error}</p>
         </form>
         </div>
+        
     </div>
   )
   
@@ -150,7 +157,13 @@ const Login = () => {
     <p>Logging You In...</p>
             </>)
   }
-  return content
+  return(
+  <>
+   {content}
+    <ToastContainer/>
+    </>
+   
+  ) 
   
 };
 

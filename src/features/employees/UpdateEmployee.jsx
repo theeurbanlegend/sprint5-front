@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Spinner from '../spinner/Spinner';
 
 const UpdateEmployee = () => {
 
@@ -138,7 +139,7 @@ let changePasscode=''
           <br />
           <button className="update-button">Update Employee</button>
         </>
-      ) : isLoading ? (<p>Loading...</p>
+      ) : isLoading ? (<Spinner/>
       ) : (
         // Show an error message if data fetching fails
         <p>{error}</p>

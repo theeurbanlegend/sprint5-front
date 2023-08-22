@@ -5,6 +5,7 @@ import { useGetItemsQuery,useDeleteFromCartMutation } from '../items/itemApiSlic
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from 'react-router-dom';
+import SmallLoader from '../spinner/SmallLoader';
 
 
 const CartItems = () => {
@@ -49,7 +50,7 @@ const CartItems = () => {
 
   let content;
   if (isLoading) {
-    content = <p>Loading...</p>;
+    content = (<SmallLoader/>);
   }
   
   if (user === null || user.cartItems.length === 0) {

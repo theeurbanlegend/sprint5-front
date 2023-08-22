@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { useSendLogoutMutation } from '../auth/authApiSlice';
 import { useNavigate } from 'react-router-dom';
+import SmallLoader from '../spinner/SmallLoader'
 
 const UserDashboard = () => {
   const {data:items,isLoading,isSuccess,isError,error}=useGetItemsQuery();
@@ -35,7 +36,7 @@ const UserDashboard = () => {
 
   let content
   if (isLoading){
-    content=( <p>Loading...</p>)
+    content=( <SmallLoader/>)
   }else if(isSuccess){
     content=(
       <div className="item-grid">

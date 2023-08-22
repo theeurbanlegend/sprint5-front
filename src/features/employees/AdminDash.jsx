@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router-dom'
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSendLogoutMutation } from '../auth/authApiSlice'
-import Message from '../Chat/Messenger'
+
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+
+import SmallLoader from '../spinner/SmallLoader'
 
 
 const AdminDash = () => {
@@ -44,7 +46,7 @@ const AdminDash = () => {
 
   let content
   if(isLoading){
-    content=(<p>Loading....</p>)
+    content=(<SmallLoader/>)
   }else if(isSuccess){
     content=employees.map(one=>(       
         <div className="employee-card" key={one._id}>

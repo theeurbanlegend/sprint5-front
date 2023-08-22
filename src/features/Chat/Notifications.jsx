@@ -13,7 +13,7 @@ const Notifications = () => {
     }
 let content
 if (isLoading){
-  content= <p>Is Loading...</p>
+  content= <Spinner/>
 }
 if(isSuccess){
   console.log(messages)

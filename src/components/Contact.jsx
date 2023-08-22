@@ -4,7 +4,7 @@ import email from '../features/img/email.jpg'
 import location from '../features/img/location.jpg'
 import Header from './Header'
 import '../features/css/contact.css'
-import Spinner from '../features/spinner/Spinner'
+import Smallloader from '../features/spinner/SmallLoader'
 
 const Contact = () => {
     const address=(

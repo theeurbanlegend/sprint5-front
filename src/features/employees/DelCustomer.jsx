@@ -3,6 +3,7 @@ import {useGetBuyersQuery,useDeleteBuyerMutation} from '../buyers/userApiSlice'
 import { useNavigate } from 'react-router-dom'
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import SmallLoader from '../spinner/SmallLoader'
 
 const BuyersList = () => {
   const {data:buyers,isLoading,isSuccess,isError,error}=useGetBuyersQuery()
@@ -22,7 +23,7 @@ const BuyersList = () => {
 
   let content
   if(isLoading){
-    content= <p>Loading...</p>
+    content= <SmallLoader/>
   }else if(isSuccess){
     content=
     <table className="item-table">

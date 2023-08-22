@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ToastContainer, toast } from 'react-toastify'
+import SmallLoader from '../spinner/SmallLoader'
 
 const ItemsList = () => {
   const {data:items,isLoading,isSuccess,isError,error}=useGetItemsQuery()
@@ -26,9 +27,8 @@ const ItemsList = () => {
 
   let content
   if(isLoading){
-    content= <p>Loading...</p>
+    content= <SmallLoader/>
   }else if(isSuccess){
-    console.log(items)
     content=(
       (
         <table className="item-table">

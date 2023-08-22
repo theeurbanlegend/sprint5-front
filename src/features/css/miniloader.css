@@ -1,0 +1,53 @@
+.loading{
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  padding: 0.5em;
+  vertical-align: middle;
+  text-align: center;
+  background-color: transparent;
+  border: 5px solid transparent;
+  border-top-color: #f60;
+  border-bottom-color: #f60;
+  border-radius: 50% 0;
+  box-shadow: 0 0 0.5em/2 #f60 inset;
+}
+
+.outer{
+  animation: spin 0.25s infinite linear;
+}
+
+.inner{
+  animation: spin 0.35s infinite linear;
+}
+
+@keyframes spin{
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+/* styling */
+ .nation {
+	width: 100%;
+	height:100vh;
+	
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+.home {
+	text-align: center;
+	display: table;
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+#wrap {
+	box-sizing: border-box;
+	display: table-cell;
+	vertical-align: middle;
+}

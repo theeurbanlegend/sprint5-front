@@ -2,6 +2,7 @@ import React from 'react'
 import { useUpdateItemMutation,useGetItemsQuery} from './itemApiSlice'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
+import Spinner from '../spinner/Spinner'
 
 const UpdateItem = () => {
 
@@ -96,7 +97,7 @@ const UpdateItem = () => {
           <button className="update-button">Update Item</button>
         </>
       ) : isLoading ? ( // Show a loading message while fetching item data
-        <p>Loading...</p>
+        <Spinner/>
       ) : (
         // Show an error message if data fetching fails
         <p>{error}</p>

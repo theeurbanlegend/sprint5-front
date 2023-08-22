@@ -7,6 +7,7 @@ import { setCredentials } from './authSlice'
 import { useDispatch } from 'react-redux'
 import usePersist from '../../hooks/usePersist'
 import Spinner from '../spinner/Spinner'
+import {toast,ToastContainer} from 'react-toastify'
 
 const Signup = () => {
   const [firstName,setFirstName]=React.useState('')
@@ -37,7 +38,7 @@ const Signup = () => {
     }
     try {
       // Create a new user
-      await addBuyer(buyer).unwrap();
+      const data=await addBuyer(buyer).unwrap();
 
       // Log in the newly created user
       const loginResponse = await loginUser(buyer).unwrap();
@@ -48,7 +49,7 @@ const Signup = () => {
       // Update the Redux state with the new credentials
       dispatch(setCredentials({ accessToken })); // Dispatch the setCredentials action
       setResponse('User created and logged in successfully');
-      console.log('User created and logged in successfully')
+      console.log(data,loginResponse)
       setFirstName('');
       setLastName('');
       setPhone('');

@@ -3,6 +3,7 @@ import io from 'socket.io-client'
 import { useGetMessagesQuery,useAddMessageMutation,useDeleteMessageMutation } from './chatApiSlice'
 import Receiver from './Receiver'
 import useAuth from '../../hooks/useAuth'
+import SmallLoader from '../spinner/SmallLoader'
 
 const socket=io.connect('http://localhost:8080'||'https://back-6xof.onrender.com')
 function Message() {
@@ -41,7 +42,7 @@ function Message() {
   };
   let content
   if (isLoading){
-    content= <p>Is Loading...</p>
+    content= <SmallLoader/>
   }
   if(isSuccess){
     content= <Receiver  messages={messages} onClose={handleClose} />
