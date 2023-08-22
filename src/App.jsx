@@ -21,6 +21,7 @@ import useAuth from './hooks/useAuth';
 import Message from './features/Chat/Messenger';
 import Receiver from './features/Chat/Receiver';
 import Notifications from './features/Chat/Notifications';
+import Contact from './components/Contact';
 // import { NotificationProvider } from './features/employees/NotificationProvider';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
       <Route index element={<Homepage/>}/>
       <Route  path="/signup" element={<Signup/>} />
       <Route path="login" element={<Login/>} />
+      <Route path='contact' element={<Contact/>}/>
       
       <Route path="*" element={<NotFound />} /> {/* Catch-all route for 404 */}
       

@@ -1,6 +1,7 @@
 import React from 'react'
 import '../features/css/homepage.css'
 import { Link } from 'react-router-dom'
+import Header from './Header';
 const Homepage = () => {
   const address = {
     street: 'Kagumo',
@@ -20,19 +21,7 @@ Thank you for choosing us as your preferred online shopping destination. Happy s
   
   return (
 <div className='homepage-div'>
-    <header>
-        <h1>Welcome to Muvas E-Shop</h1>
-        <nav>
-            <ul>
-                <li><Link to="#">Home</Link></li>
-                <li><Link to="#">Contact</Link></li>
-                <li><Link to="/login">Login</Link></li>
-                <li><Link to="/signup">Signup</Link></li>
-            </ul>
-        </nav>
-        
-    </header>
-
+   <Header/>
     <main>
       
       <p>{shopDescription}</p>

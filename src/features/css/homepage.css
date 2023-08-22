@@ -3,71 +3,82 @@
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Stack elements vertically */
     align-items: center;
-    height: 100vh;
-    background-image:url('../img/shop.jpg');
-    backdrop-filter: blur(40px);
-    background-size: cover;
-    color:white;
+    color: white;
+    min-height: 100vh; /* Ensure the div takes at least the viewport height */
+    box-sizing: border-box; /* Include padding and border in height calculations */
+    overflow: hidden; /* Prevent content from overflowing */
 }
-
 
 header {
-    width:100%;
-    top:0;
-    position:absolute;
-    background-image:linear-gradient(to right, blue,brown);
+    width: 100%;
+    background-image: linear-gradient(to right, blue, brown);
     color: #fff;
     padding: 20px;
+    position: fixed; 
+    top: 0;
 }
 
-.homepage-div nav {
+main {
+    margin-top: 140px;
+    flex: 1; 
+    width: 100%;
+    background-image: url('../img/shop.jpg');
+    backdrop-filter: blur(140px);
+    background-size: cover;
+    overflow: auto; 
+}
+
+
+.homepage-div nav, .cont nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.homepage-div h1 {
+.homepage-div h1, .cont h1 {
     margin: 0;
 }
 
-.homepage-div ul {
-    list-style: none;
+.homepage-div ul, .cont ul{
+    list-style-type: none;
     display: flex;
+    flex-direction: row;
 }
 
-.homepage-div li {
+.homepage-div li, .cont li {
+    list-style-type: none;
     margin-left: 20px;
 }
 
-.homepage-div a {
+.homepage-div a, .cont header a {
     color: #fff;
     text-decoration: none;
     padding: 8px 16px;
     border-radius: 4px;
 }
 
-.homepage-div a:hover {
+.homepage-div a:hover, .cont a:hover {
     background-color: #555;
 }
 
 
 @media screen and (max-width: 600px)  {
-    .homepage-div ul {
+    .homepage-div ul, .cont ul{
         display:flex;
         
         align-items: center;
         width:100%;
         flex-direction:column;
-        color:brown;
+        color:rgb(184, 144, 144);
         
     }
-    .homepage-div header{
+    .homepage-div header, .cont header{
         margin-bottom: 80px;
     }
 
-    .homepage-div h1 {
+    .homepage-div h1, .cont h1 {
         padding-left:15px;
         margin-top: 5px;
     }
