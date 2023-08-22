@@ -13,7 +13,7 @@ const CartItems = () => {
   const [item, setItem] = React.useState(null);
   const navigate =useNavigate()
   const { username } = useAuth();
-  const { data: items } = useGetItemsQuery();
+  const { data: items, isLoading:holding,isSuccess:gotit,isError:uhoh} = useGetItemsQuery();
   const { data: buyers, isLoading, isSuccess, isError, error } = useGetBuyersQuery();
 
   const [deleteCart]=useDeleteFromCartMutation()
@@ -59,7 +59,10 @@ const CartItems = () => {
     <div>No cart items to display</div>
     </>);
   }
-   if (isSuccess) {
+  if(holding){
+    content=(<SmallLoader/>)
+  }
+   if (isSuccess&&gotit) {
    // Calculate item quantities and total price in the user's cart
    const cartItemsCount = user?.cartItems.reduce((acc, itemId) => {
     acc[itemId] = (acc[itemId] || 0) + 1;
@@ -74,24 +77,40 @@ const CartItems = () => {
  
   content = (
     <div>
+       <table className="item-table">
+    <thead>
+      <tr>
+        <th>Itemname</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
       {Object.keys(cartItemsCount).map((itemId) => {
         const foundItem = items.find((item) => item._id === itemId);
         const quantity = cartItemsCount[itemId];
         return (
-          <div className="product" key={itemId}>
-            <h3 >Product Name: {foundItem?.itemname}</h3>
-            <p>Price per item: Ksh {foundItem?.price}</p>
-            <p>Quantity: {quantity}</p>
-            <p>Total Price: Ksh {foundItem?.price * quantity}</p>
-            <FontAwesomeIcon onClick={()=>handleDelete(itemId)} icon={faTrashCan} />
-          </div>
+          content=       
+        <tbody>
+            <tr key={itemId}>
+              <td>{foundItem?.itemname}</td>
+              <td> {foundItem?.price} Ksh</td>
+              <td> {quantity}</td>
+              <td>{foundItem?.price * quantity} Ksh</td>
+              <td>
+              <FontAwesomeIcon className='del-icon' onClick={()=>handleDelete(itemId)} icon={faTrashCan} />
+              </td>
+            </tr>
+        </tbody>
         );
       })}
+      </table>
       <p>Total Price of All Items: Ksh {total}</p>
     </div>
   );
-} else if (isError) {
-  content = <p>{error}</p>;
+} else if (isError||items=='undefined') {
+  content = <p>{error||'OOps Server Error'}</p>;
 }
 
 return content
