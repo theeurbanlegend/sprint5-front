@@ -37,7 +37,16 @@ const Contact = () => {
         </>
     )
   return (
-    <Spinner/>
+    <div className='cont'>
+    <Header/>
+        <h1 className='head'>GET IN TOUCH</h1>
+        <div className='cont-body'>
+            <div className='cont-details'>{address}</div>
+            <div className='cont-details'>{mail}</div>
+            <div className='cont-details'>{tel}</div>
+            
+        </div>
+    </div>
   )
 }
 
