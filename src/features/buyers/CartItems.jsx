@@ -77,6 +77,7 @@ const CartItems = () => {
  
   content = (
     <div>
+      <button onClick={()=>navigate('/user')}>Back to home</button>
        <table className="item-table">
     <thead>
       <tr>
