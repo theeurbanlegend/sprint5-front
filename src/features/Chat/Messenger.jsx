@@ -5,7 +5,7 @@ import Receiver from './Receiver'
 import useAuth from '../../hooks/useAuth'
 import SmallLoader from '../spinner/SmallLoader'
 
-const socket=io.connect('http://localhost:8080'||'https://back-6xof.onrender.com')
+const socket=io.connect('https://sprint5-backend.vercel.app')
 function Message() {
   const [mess,setMess]=useState('')
   const {username}=useAuth()
