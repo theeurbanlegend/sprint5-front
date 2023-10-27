@@ -4,7 +4,7 @@ import '../css/receiver.css'
 import useAuth from '../../hooks/useAuth'
 import unread from '../img/unread.jpg'
 import { formatDistanceToNow } from 'date-fns';
-const socket=io.connect('http://localhost:8080'||'https://back-6xof.onrender.com')
+const socket=io.connect('https://sprint5-backend.vercel.app')
 
 
 
