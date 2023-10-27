@@ -3,7 +3,6 @@ import '../css/staffdash.css'
 import { Link } from 'react-router-dom'
 import { useSendLogoutMutation } from '../auth/authApiSlice';
 import { useNavigate } from 'react-router-dom';
-import Receiver from '../Chat/Receiver';
 const StaffDashboard = ({username}) => {
   const [sendLogout]=useSendLogoutMutation()
   const navigate=useNavigate()

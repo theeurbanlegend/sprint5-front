@@ -18,11 +18,7 @@ import UpdateEmployee from './features/employees/UpdateEmployee'
 import AddEmployee from './features/employees/AddEmployee';
 import DelCustomer from './features/employees/DelCustomer'
 import useAuth from './hooks/useAuth';
-import Message from './features/Chat/Messenger';
-import Receiver from './features/Chat/Receiver';
-import Notifications from './features/Chat/Notifications';
 import Contact from './components/Contact';
-// import { NotificationProvider } from './features/employees/NotificationProvider';
 
 function App() {
   const authData=useAuth()
@@ -46,7 +42,6 @@ function App() {
 
           <Route path="staff" element={<RequireAuth allowedRoles={'Employee'}/>}>
             <Route path="/staff" element={<StaffDashboard {...authData}/>} />
-            <Route path="/staff/receive" element={<Notifications {...authData}/>} />
           </Route>
 
           <Route path="admin" element={<RequireAuth allowedRoles={['Admin']} />}>
@@ -57,7 +52,7 @@ function App() {
             <Route exact path='/admin/work/update/:empId' element={<UpdateEmployee/>}/>
             <Route exact path='/admin/work/new' element={<AddEmployee/>}/>
             <Route  path='/admin/remove' element={<DelCustomer/>}/>
-            <Route path='/admin/mess' element={<Message/>}/>
+        
           </Route>
 
         </Route>
